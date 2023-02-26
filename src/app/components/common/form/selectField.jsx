@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 
 const SelectField = ({
@@ -7,8 +7,10 @@ const SelectField = ({
     onChange,
     defaultOption,
     options,
-    error
+    error,
+    ...rest
 }) => {
+    useEffect(() => { console.log("жижа"); });
     const handleChange = ({ target }) => {
         onChange({ name: target.name, value: target.value });
     };
@@ -35,6 +37,7 @@ const SelectField = ({
                 name="profession"
                 value={value}
                 onChange={handleChange}
+                {...rest}
             >
                 <option disabled value="">
                     {defaultOption}
@@ -59,4 +62,4 @@ SelectField.propTypes = {
     options: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 };
 
-export default SelectField;
+export default React.memo(SelectField);
